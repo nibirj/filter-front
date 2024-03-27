@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-100">
+  <div class="h-100 text-center">
     <div class="toast-container position-fixed bottom-0 end-0 p-3" ref="container" >
       <Notification :type="test.type" :message="test.message" v-for="test in notifications.slice().reverse()"></Notification>
     </div>

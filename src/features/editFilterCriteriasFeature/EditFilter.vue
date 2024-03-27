@@ -54,16 +54,13 @@ import {criteriasVerification, nameVerification} from "@/shared/dataVerify/filte
 import {addNewCriteria, resizeModal} from "@/shared/modalFunctionality/modalFunctionality.js";
 import {Modal} from "bootstrap";
 import {showNotification} from "@/shared/notifications/notificationFuntionality.js";
+import {FilterDTO} from "@/shared/DTO/FilterDTO.js";
 export default {
   components: {Notification, Criterias},
   props: {
     filterId: {
       type: Number,
       required: true,
-    },
-    filtersData: {
-      type: Array,
-      required: true
     },
   },
   data() {
@@ -75,7 +72,8 @@ export default {
       criterias: [],
       modal: null,
       filterController: inject("$filterController"),
-      notificationState: inject("$notificationState")
+      notificationState: inject("$notificationState"),
+      filtersData: inject("$applicationState").filtersList
     };
   },
   watch: {
@@ -125,10 +123,7 @@ export default {
       const index = this.filtersData.findIndex(element => element.id === this.filterData.id);
       if (index !== -1) {
         this.filtersData.splice(index, 1);
-        this.filtersData.splice(index, 0, {
-          id: data.data.id,
-          name: data.data.name
-        })
+        this.filtersData.splice(index, 0, new FilterDTO(data.data.id, data.data.name))
       }
     },
     getById() {

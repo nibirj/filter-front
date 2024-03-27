@@ -44,13 +44,10 @@ import { Modal } from 'bootstrap';
 import { criteriasVerification, nameVerification } from "@/shared/dataVerify/filterVerification.js";
 import { addNewCriteria, resizeModal} from "@/shared/modalFunctionality/modalFunctionality.js";
 import { showNotification } from "@/shared/notifications/notificationFuntionality.js";
+import {FilterDTO} from "@/shared/DTO/FilterDTO.js";
 export default {
   components: { Notification, Criterias, Modal},
   props: {
-    filtersData: {
-      type: Array,
-      required: true
-    },
     filterData: {
       type: FilterWithCriteriaDTO,
       required: true
@@ -63,6 +60,7 @@ export default {
       filterController: inject("$filterController"),
       modal: null,
       areCriteriasEmpty: false,
+      filtersData: inject("$applicationState").filtersList,
       notificationState: inject("$notificationState"),
     };
   },
@@ -102,10 +100,7 @@ export default {
       this.$refs.name.classList.remove("is-invalid")
     },
     updateRow(data) {
-      this.filtersData.push({
-        id: data.data.id,
-        name: data.data.name
-      })
+      this.filtersData.push(new FilterDTO(data.data.id, data.data.name))
     }
   }
 }

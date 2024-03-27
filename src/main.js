@@ -8,4 +8,10 @@ const app = createApp(App);
 
 app.provide("$filterController", "http://localhost:8080/filter");
 app.provide("$notificationState", []);
+app.provide("$applicationState", {
+    modalMode: true,
+    nonModalModeOpen: false,
+    filtersList: [],
+    chosenFilterId: 0
+});
 app.mount('#app');
